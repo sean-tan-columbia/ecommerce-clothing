@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Closet: Find the Sold-Outs</title>
+    <link rel="stylesheet" type="text/css" href="app.css">
+</head>
+<body ng-app="closet-front">
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/0.3.4/sockjs.min.js"></script>
+    <script src="lib/vertx-eventbus.js"></script>
+    <script src="app.js"></script>
+
+    <div class="header">
+    </div>
+
+    <div class="item-home" ng-controller="itemDetailRequestController">
+        <div class="photo-gallery">
+            <div ng-repeat="image in images">
+                <div class="image-holder">
+                    <img class="item-image" ng-src="data:image/jpg;base64,{{image.source}}" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="item-action">
+            <button class="add-item" disabled>Add To Basket</button>
+        </div>
+    </div>
+
+</body>
+</html>
