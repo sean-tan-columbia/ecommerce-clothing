@@ -1,6 +1,5 @@
 package com.mycloset.server.verticle;
 
-import com.mycloset.server.cache.ImageRequestHandler;
 import com.mycloset.server.cache.ItemDetailRequestHandler;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.Json;
@@ -21,7 +20,7 @@ public class ItemDetailRequestVerticle extends AbstractVerticle {
     public void start() throws Exception {
         System.out.println("[Worker] Starting in " + Thread.currentThread().getName());
 
-        this.itemDetailRequestHandler = ItemDetailRequestHandler.getInstance();
+        this.itemDetailRequestHandler = new ItemDetailRequestHandler();
 
         vertx.eventBus().consumer("detail.item.request", message -> {
             System.out.println("[Worker] Received message " + message.body() + " from " + message.address() + " in thread " + Thread.currentThread().getName());

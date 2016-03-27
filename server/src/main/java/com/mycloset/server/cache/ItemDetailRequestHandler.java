@@ -17,17 +17,8 @@ public class ItemDetailRequestHandler extends JDBCCacheHandler<Long, Image> {
 
     private final static Logger logger = LoggerFactory.getLogger(ItemRequestHandler.class);
 
-    private static ItemDetailRequestHandler itemDetailRequestHandler;
-
-    private ItemDetailRequestHandler() throws Exception {
+    public ItemDetailRequestHandler() throws Exception {
         super(ItemDetailRequestHandler.class.getName());
-    }
-
-    public static ItemDetailRequestHandler getInstance() throws Exception {
-        if (itemDetailRequestHandler == null) {
-            itemDetailRequestHandler = new ItemDetailRequestHandler();
-        }
-        return itemDetailRequestHandler;
     }
 
     public List<Image> handle(String itemId) throws Exception {

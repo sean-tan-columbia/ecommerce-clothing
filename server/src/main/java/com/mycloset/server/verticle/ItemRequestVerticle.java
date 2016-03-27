@@ -1,6 +1,5 @@
 package com.mycloset.server.verticle;
 
-import com.mycloset.server.cache.ImageRequestHandler;
 import com.mycloset.server.cache.ItemRequestHandler;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.json.Json;
@@ -24,7 +23,7 @@ public class ItemRequestVerticle extends AbstractVerticle {
 
         System.out.println("[Worker] Starting in " + Thread.currentThread().getName());
 
-        this.itemRequestHandler = ItemRequestHandler.getInstance();
+        this.itemRequestHandler = new ItemRequestHandler();
 
         vertx.eventBus().consumer("index.item.request", message -> {
             System.out.println("[Worker] Received message " + message.body() + " from " + message.address() + " in thread " + Thread.currentThread().getName());
@@ -42,8 +41,6 @@ public class ItemRequestVerticle extends AbstractVerticle {
             .map(item -> {
                 Map<String, String> itemProp = new HashMap<>();
                 itemProp.put("id", item.getId().toString());
-                itemProp.put("route", "");
-                // itemProp.put("source", imageRequestHandler.handle(item.getCoverImagePath()));
                 itemProp.put("source", item.getCoverImagePath());
                 itemProp.put("description", item.getDescription());
                 return itemProp;

@@ -18,17 +18,8 @@ public class ItemRequestHandler extends JDBCCacheHandler<Long, Item> {
 
     private final static Logger logger = LoggerFactory.getLogger(ItemRequestHandler.class);
 
-    private static ItemRequestHandler itemRequestHandler;
-
-    private ItemRequestHandler() throws Exception {
+    public ItemRequestHandler() throws Exception {
         super(ItemRequestHandler.class.getName());
-    }
-
-    public static ItemRequestHandler getInstance() throws Exception {
-        if (itemRequestHandler == null) {
-            itemRequestHandler = new ItemRequestHandler();
-        }
-        return itemRequestHandler;
     }
 
     public List<Item> handle() throws Exception {
