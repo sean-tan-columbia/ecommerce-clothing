@@ -21,23 +21,27 @@ public abstract class JDBCCacheHandler<U, V> extends AbstractCacheHandler<String
 
     protected CacheManager cacheManager;
     protected Connection connection;
-    protected Statement statement;
 
     protected JDBCCacheHandler(String name) throws Exception {
-        this.cacheManager = CacheManager.create();
+        this.cacheManager = CacheManager.create("src/main/resources/ehcache.xml");
         if (this.cacheManager.cacheExists(name)) {
             this.cache = this.cacheManager.getCache(name);
         } else {
             this.cacheManager.addCache(name);
             this.cache = this.cacheManager.getCache(name);
         }
+        getConnection();
+    }
 
+    protected Connection getConnection() throws Exception {
         Class.forName("org.mariadb.jdbc.Driver");
-        connection = DriverManager.getConnection(
-                "jdbc:mariadb://104.196.111.25:3306/test", "tajinx", "jtan"
-        );
+        if (this.connection == null) {
+            connection = DriverManager.getConnection(
+                "jdbc:mariadb://104.196.15.12:3306/test", "tajinx", "jtan"
+            );
+        }
         logger.info("Connected to MySQL database.");
-        statement = connection.createStatement();
+        return connection;
     }
 
     @Override
