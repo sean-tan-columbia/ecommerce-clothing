@@ -1,0 +1,139 @@
+/*
+    For index page
+*/
+body {
+    background-color: #E8E8E8;
+}
+div.header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 64px; /* MODIFY THIS VALUE TO FIT YOUR NEED */
+    background-color: white;
+    box-shadow: 0px 2px 7px -4px rgba(0,0,0,1);
+}
+div.header div.header-left {
+    padding-top: 15px;
+    padding-left: 30px;
+}
+div.header div.header-left input.search-box {
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: 1px solid #848484;
+    outline:0;
+    height:30px;
+    width: 700px;
+    background-color: #F0F0F0;
+    font-size: 20px;
+    padding-left: 10px;
+}
+div.main-content {
+    padding: 70px 140px 50px 140px;
+}
+div.img-wrapper {
+    margin: 15px;
+    border: 0px;
+    float: left;
+    width: 290px;
+    box-shadow: 0px 2px 7px -4px rgba(0,0,0,1);
+    border-radius: 8px;
+    background-color: white;
+}
+div.img-wrapper img.image {
+    width: 100%;
+    height: 380px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #D3D3D3;
+}
+div.img-wrapper div.empty {
+    width: 100%;
+    height: 380px;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+    background-color: #D3D3D3;
+}
+div.img-wrapper div.desc {
+    padding: 15px;
+    background-color: white;
+    height: 70px;
+    text-align: center;
+    border-bottom-right-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+/*
+    For display.html
+*/
+div.item-home {
+    /* border: 10px solid black; */
+    margin-top: 80px;
+}
+div.item-home div.photo-gallery {
+    /* border: 1px solid navy; */
+    padding-left: 15px;
+    padding-right: 15px;
+    width: 800px;
+    float: left;
+}
+div.item-home div.photo-gallery div.image-holder {
+    /* border: 1px solid navy; */
+    padding: 10px 10px 0px 10px;
+    width: 375px;
+    float: left;
+}
+div.item-home div.photo-gallery div.image-holder img.image-empty {
+    width: 375px;
+    height: 475px;
+    box-shadow: 0px 2px 7px -4px rgba(0,0,0,1);
+    background-color: #D3D3D3;
+}
+div.item-home div.photo-gallery div.image-holder img.item-image {
+    width: 375px;
+    height: 475px;
+    box-shadow: 0px 2px 7px -4px rgba(0,0,0,1);
+    background-color: #D3D3D3;
+}
+
+div.item-home div.item-action {
+    /* border: 1px solid red;*/
+    padding: 10px 50px 20px 50px;
+    /* width: 400px; */
+    float: left;
+}
+
+
+button.add-item {
+	display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    /* padding: 10px 80px; */
+    border: 1px solid #aa0305;
+    border-radius: 8px;
+    background: #ff060a;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff060a), to(#aa0305));
+    background: -moz-linear-gradient(top, #ff060a, #aa0305);
+    background: linear-gradient(to bottom, #ff060a, #aa0305);
+    text-shadow: #640203 1px 1px 1px;
+    font: normal normal normal 20px arial;
+    color: #ffffff;
+    text-decoration: none;
+}
+button.add-item:hover,
+button.add-item:focus {
+    border: 1px solid ##c80406;
+    background: #ff070c;
+    background: -webkit-gradient(linear, left top, left bottom, from(#ff070c), to(#cc0406));
+    background: -moz-linear-gradient(top, #ff070c, #cc0406);
+    background: linear-gradient(to bottom, #ff070c, #cc0406);
+    color: #ffffff;
+    text-decoration: none;
+}
+button.add-item:active {
+	background: #aa0305;
+    background: -webkit-gradient(linear, left top, left bottom, from(#aa0305), to(#aa0305));
+    background: -moz-linear-gradient(top, #aa0305, #aa0305);
+    background: linear-gradient(to bottom, #aa0305, #aa0305);
+}
