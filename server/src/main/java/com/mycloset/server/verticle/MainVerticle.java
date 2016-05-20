@@ -17,7 +17,7 @@ import io.vertx.ext.web.handler.sockjs.SockJSHandler;
  */
 public class MainVerticle extends AbstractVerticle {
 
-    private final String WEB_ROOT = "../../../mycloset-client/";
+    private final String WEB_ROOT = "../../../client/";
 
     public static void main(String[] args) {
         Runner.runExample(MainVerticle.class);
