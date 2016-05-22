@@ -38,14 +38,15 @@ public abstract class JDBCCacheHandler<U, V> extends AbstractCacheHandler<String
         this.dataSource.setUrl("jdbc:mariadb://104.196.15.12:3306/test");
         this.dataSource.setUsername("tajinx");
         this.dataSource.setPassword("jtan");
+        this.dataSource.setValidationQuery("SELECT item_id FROM test.item LIMIT 1;");
     }
 
     protected Statement prepareStatement() throws Exception {
         if (this.connection == null) {
             logger.info("Connected to MySQL database.");
-            connection = dataSource.getConnection();
+            this.connection = dataSource.getConnection();
+            this.statement = this.connection.createStatement();
         }
-        this.statement = this.connection.createStatement();
         return this.statement;
     }
 
