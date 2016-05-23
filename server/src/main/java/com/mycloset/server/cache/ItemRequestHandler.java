@@ -41,7 +41,7 @@ public class ItemRequestHandler extends JDBCCacheHandler<Long, Item> {
     protected Map<Long, Item> mapToObject(String sql) throws Exception {
         logger.info("[Worker] Retrieving message in Thread " + Thread.currentThread().getName());
         Map<Long, Item> resultMap = new HashMap<>();
-        ResultSet resultSet = this.prepareStatement().executeQuery(sql);
+        ResultSet resultSet = this.dataSource.getConnection().prepareStatement(sql).executeQuery();
         while (resultSet.next()) {
             Long itemID = resultSet.getLong("item_id");
             Item item = new Item(itemID);
