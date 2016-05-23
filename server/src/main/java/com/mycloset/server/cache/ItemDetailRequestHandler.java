@@ -38,7 +38,7 @@ public class ItemDetailRequestHandler extends JDBCCacheHandler<Long, Image> {
     protected Map<Long, Image> mapToObject(String sql) throws Exception {
         logger.info("[Worker] Retrieving message in Thread " + Thread.currentThread().getName());
         Map<Long, Image> resultMap = new HashMap<>();
-        ResultSet resultSet = this.prepareStatement().executeQuery(sql);
+        ResultSet resultSet = this.dataSource.getConnection().prepareStatement(sql).executeQuery();
         while (resultSet.next()) {
             Long imageId = resultSet.getLong("image_id");
             Image image = new Image(imageId);
