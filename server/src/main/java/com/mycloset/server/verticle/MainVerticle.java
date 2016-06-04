@@ -44,6 +44,27 @@ public class MainVerticle extends AbstractVerticle {
                 .addInboundPermitted(new PermittedOptions().setAddress("detail.item.request"));
         router.route("/eventbus/*").handler(SockJSHandler.create(vertx).bridge(bridgeOptions));
 
+        // Routing index Requests
+        router.route("/show").handler(routingContext -> {
+            vertx.eventBus().send("index.item.request", "", res -> {
+                routingContext.response()
+                        .putHeader("content-type", "application/json")
+                        .putHeader("Access-Control-Allow-Origin", "*")
+                        .end(res.result().body().toString());
+            });
+        });
+
+        // Routing detail Requests
+        router.route("/detail/:itemId").handler(routingContext -> {
+            String itemId = routingContext.request().getParam("");
+            vertx.eventBus().send("detail.item.request", itemId, res -> {
+                routingContext.response()
+                        .putHeader("content-type", "application/json")
+                        .putHeader("Access-Control-Allow-Origin", "*")
+                        .end(res.result().body().toString());
+            });
+        });
+
         // Handle static resources
         router.route("/*").handler(StaticHandler.create(WEB_ROOT).setCachingEnabled(false));
 
