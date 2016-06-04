@@ -56,7 +56,7 @@ public class MainVerticle extends AbstractVerticle {
 
         // Routing detail Requests
         router.route("/detail/:itemId").handler(routingContext -> {
-            String itemId = routingContext.request().getParam("");
+            String itemId = routingContext.request().getParam("itemId");
             vertx.eventBus().send("detail.item.request", itemId, res -> {
                 routingContext.response()
                         .putHeader("content-type", "application/json")
