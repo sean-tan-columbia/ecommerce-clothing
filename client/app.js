@@ -55,7 +55,6 @@ var app = angular.module("closet-front", ['ngRoute'])
 })
 
 .controller('itemDetailReqController', function($scope, $http, $routeParams) {
-    console.log("http://104.196.15.12:8080/detail/" + $routeParams.itemId)
     $http.get("http://104.196.15.12:8080/detail/" + $routeParams.itemId)
     .then(function(response) {
         $scope.items = response.data.items
