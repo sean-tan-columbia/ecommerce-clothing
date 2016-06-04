@@ -4,15 +4,15 @@ var app = angular.module("closet-front", ['ngRoute'])
     $routeProvider
         .when('/display', {
             templateUrl: 'display.html',
-            controller: 'itemDetailRequestController'
+            controller: 'itemDetailReqController'
         })
         .when('/display/:itemId', {
             templateUrl: 'display.html',
-            controller: 'itemDetailRequestController'
+            controller: 'itemDetailReqController'
         })
         .when('/', {
             templateUrl: 'home.html',
-            controller: 'itemRequestController'
+            controller: 'itemReqController'
         })
         .when('/admin', {
             templateUrl: 'admin.html',
@@ -47,8 +47,22 @@ var app = angular.module("closet-front", ['ngRoute'])
     })
 })
 
+.controller('itemReqController', function($scope, $http) {
+    $http.get("http://localhost:8080/show")
+    .then(function(response) {
+        $scope.items = response.data.items
+    })
+})
+
+.controller('itemDetailReqController', function($scope, $http, $routeParams) {
+    $http.get("http://localhost:8080/detail/" + $routeParams.itemId)
+    .then(function(response) {
+        $scope.items = response.data.items
+    })
+})
+
 .controller('itemRequestController', function($scope) {
-    var eventbus = new EventBus('http://104.196.15.12:8080/eventbus');
+    var eventbus = new EventBus('http://localhost:8080/eventbus');
     eventbus.onopen = function() {
         eventbus.send('index.item.request', 'itemRequestController', function(error, response) {
             console.log(JSON.parse(response.body).items);
@@ -60,7 +74,7 @@ var app = angular.module("closet-front", ['ngRoute'])
 })
 
 .controller('itemDetailRequestController', function($scope, $routeParams) {
-    var eventbus = new EventBus('http://104.196.15.12:8080/eventbus');
+    var eventbus = new EventBus('http://localhost:8080/eventbus');
     eventbus.onopen = function() {
         eventbus.send('detail.item.request', $routeParams.itemId, function(error, response) {
             console.log(JSON.parse(response.body).items);
@@ -72,7 +86,7 @@ var app = angular.module("closet-front", ['ngRoute'])
 })
 
 .controller('newItemController', function($scope) {
-    var eventbus = new EventBus('http://104.196.15.12:8080/eventbus');
+    var eventbus = new EventBus('http://localhost:8080/eventbus');
     eventbus.onopen = function() {
         eventbus.send('index.item.request', 'newItemController', function(error, response) {
             console.log(JSON.parse(response.body).items);
@@ -84,7 +98,7 @@ var app = angular.module("closet-front", ['ngRoute'])
 })
 
 .controller('imageUploadController', function($scope, $routeParams, fileReader) {
-    var eventbus = new EventBus('http://mycloset-test-server:8080/eventbus');
+    var eventbus = new EventBus('http://localhost:8080/eventbus');
     eventbus.onopen = function() {
         eventbus.send('detail.item.request', $routeParams.itemId, function(error, response) {
             console.log(JSON.parse(response.body).items);
