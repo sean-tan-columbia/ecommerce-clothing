@@ -32,10 +32,11 @@ public class MainVerticle extends AbstractVerticle {
 
         // Avoid concurrent access to the objects otherwise cause ImageRequestHandler exception
         vertx.deployVerticle("com.mycloset.server.verticle.ItemRequestVerticle",
-                new DeploymentOptions().setWorker(true),
-                res -> { vertx.deployVerticle("com.mycloset.server.verticle.ItemDetailRequestVerticle",
-                            new DeploymentOptions().setWorker(true));
-                });
+                new DeploymentOptions().setWorker(true)
+        //        res -> { vertx.deployVerticle("com.mycloset.server.verticle.ItemDetailRequestVerticle",
+        //                    new DeploymentOptions().setWorker(true));
+        //        }
+        );
         Router router = Router.router(vertx);
 
         // Handle eventbus messages
