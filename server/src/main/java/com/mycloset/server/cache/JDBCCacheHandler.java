@@ -33,12 +33,11 @@ public abstract class JDBCCacheHandler<U, V> extends AbstractCacheHandler<String
             this.cacheManager.addCache(name);
             this.cache = this.cacheManager.getCache(name);
         }
-        this.dataSource = new BasicDataSource();
-        this.dataSource.setDriverClassName("org.mariadb.jdbc.Driver");
-        this.dataSource.setUrl("jdbc:mariadb://104.196.15.12:3306/test");
-        this.dataSource.setUsername("tajinx");
+        this.dataSource = new ComboPooledDataSource();
+        this.dataSource.setDriverClass("org.mariadb.jdbc.Driver");
+        this.dataSource.setJdbcUrl("jdbc:mariadb://104.196.15.12:3306/test?autoReconnect=true");
+        this.dataSource.setUser("tajinx");
         this.dataSource.setPassword("jtan");
-        this.dataSource.setValidationQuery("SELECT item_id FROM test.item LIMIT 1;");
     }
 
     protected Statement prepareStatement() throws Exception {
