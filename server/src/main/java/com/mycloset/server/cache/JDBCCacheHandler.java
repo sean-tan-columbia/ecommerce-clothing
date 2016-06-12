@@ -1,5 +1,6 @@
 package com.mycloset.server.cache;
 
+import com.mchange.v2.c3p0.ComboPooledDataSource;
 import io.vertx.core.logging.Logger;
 import io.vertx.core.logging.LoggerFactory;
 import net.sf.ehcache.CacheManager;
@@ -11,8 +12,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import org.apache.commons.dbcp2.BasicDataSource;
-
 /**
  * Created by jtan on 3/10/16.
  */
@@ -23,7 +22,7 @@ public abstract class JDBCCacheHandler<U, V> extends AbstractCacheHandler<String
     protected CacheManager cacheManager;
     protected Connection connection;
     protected Statement statement;
-    protected BasicDataSource dataSource;
+    protected ComboPooledDataSource dataSource;
 
     protected JDBCCacheHandler(String name) throws Exception {
         this.cacheManager = CacheManager.create("src/main/resources/ehcache.xml");
@@ -43,9 +42,9 @@ public abstract class JDBCCacheHandler<U, V> extends AbstractCacheHandler<String
     protected Statement prepareStatement() throws Exception {
         if (this.connection == null) {
             logger.info("Connected to MySQL database.");
-            this.connection = dataSource.getConnection();
-            this.statement = this.connection.createStatement();
+            connection = dataSource.getConnection();
         }
+        this.statement = this.connection.createStatement();
         return this.statement;
     }
 
