@@ -37,6 +37,8 @@ public abstract class JDBCCacheHandler<U, V> extends AbstractCacheHandler<String
         this.dataSource.setJdbcUrl("jdbc:mariadb://104.196.15.12:3306/test?autoReconnect=true");
         this.dataSource.setUser("tajinx");
         this.dataSource.setPassword("jtan");
+        this.dataSource.setMinPoolSize(20);
+        this.dataSource.setMaxPoolSize(30);
     }
 
     protected Statement prepareStatement() throws Exception {
