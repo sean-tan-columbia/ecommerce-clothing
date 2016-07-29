@@ -77,6 +77,22 @@ public class Client {
         this.enrollDate = enrollDate;
     }
 
+    public long getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(long groupId) {
+        this.groupId = groupId;
+    }
+
+    public long getPrescriptionId() {
+        return prescriptionId;
+    }
+
+    public void setPrescriptionId(long prescriptionId) {
+        this.prescriptionId = prescriptionId;
+    }
+
     private long id;
     private String ssn;
     private String name;
@@ -86,5 +102,6 @@ public class Client {
     private String occupation;
     private String address;
     private String enrollDate;
-
+    private long groupId;
+    private long prescriptionId;
 }
