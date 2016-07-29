@@ -1,7 +1,5 @@
 package com.mycloset.server.verticle;
 
-import com.apple.eawt.AppEvent;
-import com.mycloset.server.model.Client;
 import com.mycloset.server.util.Runner;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Future;
@@ -10,7 +8,6 @@ import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.jdbc.JDBCClient;
-import io.vertx.ext.sql.ResultSet;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.web.Router;
 
