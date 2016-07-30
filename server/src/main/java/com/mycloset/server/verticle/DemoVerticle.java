@@ -54,7 +54,8 @@ public class DemoVerticle extends AbstractVerticle {
             jdbcClient.getConnection(res -> {
                 if (res.succeeded()) {
                     SQLConnection connection = res.result();
-                    connection.queryWithParams("SELECT * FROM test.client WHERE id = ?", new JsonArray().add(clientId), res2 -> {
+                    // connection.queryWithParams("SELECT * FROM test.client WHERE id = ?", new JsonArray().add(clientId), res2 -> {
+                    connection.query("SELECT * FROM test.client WHERE id=" + clientId, res2 -> {
                         if (res2.failed()) {
                             logger.error("Cannot retrieve the data from the database");
                             connection.close();
