@@ -48,12 +48,11 @@ public class DemoVerticle extends AbstractVerticle {
                     .end("<h1>Hello from my first Vert.x 3 application</h1>");
         });
 
-        jdbcClient.getConnection(res -> {
-            if (res.succeeded()) {
-                logger.info("Connected to database.");
-                SQLConnection connection = res.result();
-                router.get("/api/client").handler(routingContext -> {
-                    String clientId = routingContext.request().getParam("id");
+        router.get("/api/client").handler(routingContext -> {
+            String clientId = routingContext.request().getParam("id");
+            jdbcClient.getConnection(res -> {
+                if (res.succeeded()) {
+                    SQLConnection connection = res.result();
                     connection.queryWithParams("SELECT * FROM test.client WHERE id = ?", new JsonArray().add(clientId), res2 -> {
                         if (res2.failed()) {
                             logger.error("Cannot retrieve the data from the database");
@@ -69,10 +68,10 @@ public class DemoVerticle extends AbstractVerticle {
                                 .end(Json.encodePrettily(results));
                         connection.close();
                     });
-                });
-            } else {
-                logger.error("Failed to connect to database.");
-            }
+                } else {
+                    logger.error("Failed to connect to database.");
+                }
+            });
         });
 
         // Create the HTTP server and pass the "accept" method to the request handler.
