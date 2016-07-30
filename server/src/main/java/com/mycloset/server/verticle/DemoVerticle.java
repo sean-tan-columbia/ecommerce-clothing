@@ -50,6 +50,7 @@ public class DemoVerticle extends AbstractVerticle {
 
         router.get("/api/client").handler(routingContext -> {
             String clientId = routingContext.request().getParam("id");
+            logger.info("Request for client " + clientId);
             jdbcClient.getConnection(res -> {
                 if (res.succeeded()) {
                     SQLConnection connection = res.result();
