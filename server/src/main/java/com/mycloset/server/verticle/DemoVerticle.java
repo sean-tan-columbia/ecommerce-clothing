@@ -7,6 +7,8 @@ import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
+import io.vertx.core.logging.Logger;
+import io.vertx.core.logging.LoggerFactory;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.web.Router;
@@ -18,6 +20,8 @@ import java.util.stream.Collectors;
  * Created by jtan on 7/28/16.
  */
 public class DemoVerticle extends AbstractVerticle {
+
+    private final static Logger logger = LoggerFactory.getLogger(DemoVerticle.class);
 
     public static void main(String[] args) {
         Runner.runExample(DemoVerticle.class);
@@ -46,13 +50,14 @@ public class DemoVerticle extends AbstractVerticle {
 
         jdbcClient.getConnection(res -> {
             if (res.succeeded()) {
-                System.out.println("[Info] Connected to database.");
+                logger.info("Connected to database.");
                 SQLConnection connection = res.result();
                 router.get("/api/client").handler(routingContext -> {
                     String clientId = routingContext.request().getParam("id");
                     connection.queryWithParams("SELECT * FROM test.client WHERE id = ?", new JsonArray().add(clientId), res2 -> {
                         if (res2.failed()) {
-                            System.err.println("Cannot retrieve the data from the database");
+                            logger.error("Cannot retrieve the data from the database");
+                            connection.close();
                             res2.cause().printStackTrace();
                             return;
                         }
@@ -62,10 +67,11 @@ public class DemoVerticle extends AbstractVerticle {
                         routingContext.response()
                                 .putHeader("content-type", "application/json; charset=utf-8")
                                 .end(Json.encodePrettily(results));
+                        connection.close();
                     });
                 });
             } else {
-                System.out.println("[Error] Failed to connect to database.");
+                logger.error("Failed to connect to database.");
             }
         });
 
