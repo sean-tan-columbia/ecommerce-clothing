@@ -58,6 +58,9 @@ public class DemoVerticle extends AbstractVerticle {
                     connection.query("SELECT * FROM test.client WHERE id=" + clientId, res2 -> {
                         if (res2.failed()) {
                             logger.error("Cannot retrieve the data from the database");
+                            routingContext.response()
+                                    .putHeader("content-type", "application/json; charset=utf-8")
+                                    .end(Json.encodePrettily(new ArrayList<>()));
                             connection.close();
                             res2.cause().printStackTrace();
                             return;
